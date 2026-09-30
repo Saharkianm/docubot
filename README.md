@@ -1,3 +1,9 @@
+
+=======
+
+# docubot
+=======
+
 # DocuBot — Local RAG Assistant for FastAPI Docs
 
 DocuBot answers questions about FastAPI using only its official documentation,
