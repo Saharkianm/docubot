@@ -40,7 +40,8 @@ def build_prompt(question, retrieved_chunks):
 
 Rules:
 - Only answer using the information in the excerpts below.
-- If the excerpts don't contain the answer, say "I don't have enough information in the docs to answer that."
+- If the excerpts don't fully answer the question, say "I don't have enough information in the docs to answer that." and STOP. Do not add suggestions, guesses, or general knowledge afterward, even if it seems helpful.
+- Do not speculate about what the documentation "might imply." Only state what it explicitly says.
 - Mention which source file the information came from.
 - Keep the answer short and clear.
 
