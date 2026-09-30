@@ -58,7 +58,10 @@ def call_ollama(prompt):
     payload = json.dumps({
         "model": MODEL,
         "messages": [{"role": "user", "content": prompt}],
-        "stream": False,   # wait for the full answer instead of streaming
+        "stream": False,
+        "options": {
+            "stop": ["User question:", "\nUser:", "\nUser question"]
+        },
     }).encode("utf-8")
 
     request = urllib.request.Request(
@@ -66,7 +69,6 @@ def call_ollama(prompt):
         data=payload,
         headers={"Content-Type": "application/json"},
     )
-    # Small local models can be slow on CPU, so allow up to 5 minutes
     with urllib.request.urlopen(request, timeout=300) as response:
         data = json.loads(response.read().decode("utf-8"))
     return data["message"]["content"]
