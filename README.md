@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # docubot
 =======
 # DocuBot — Local RAG Assistant for FastAPI Docs
