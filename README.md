@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# docubot
-=======
 # DocuBot — Local RAG Assistant for FastAPI Docs
 
 DocuBot answers questions about FastAPI using only its official documentation,
@@ -91,11 +88,27 @@ debugging a fully local pipeline — from embeddings to generation — demonstra
 the same engineering skills as a hosted-API version, applied to a genuinely
 harder constraint.
 
+## Limitations (observed during testing)
+
+- **Small models trade off differently on grounding.** `phi3` (~3.8B params)
+  answers confidently but occasionally blends in outside knowledge alongside
+  retrieved context. `gemma2:2b` is more conservative and sometimes refuses
+  to answer even when a relevant chunk was retrieved. This is a known
+  characteristic of small-parameter models following strict instructions,
+  and a real trade-off to weigh when choosing a model for a given use case.
+- **Refusal detection is a simple string match**, so it only reliably
+  suppresses source citations when the model phrases a refusal exactly as
+  instructed. A model using different refusal wording can leak citations
+  for an answer it didn't actually give. A more robust fix would use
+  structured (JSON) output instead of parsing free text.
+- **Retrieval isn't always precise** — for narrow topics, less-relevant
+  chunks are sometimes returned alongside the correct one.
+
 ## Possible improvements
 
 - Conversation memory across turns
-- Structured (JSON) model output instead of parsing free text for refusals
-- Larger/quantized local models for better answer quality
+- Structured (JSON) model output instead of parsing free text for refusals/citations
+- Larger/quantized local models for better instruction-following
 - Chunking strategy tuning (semantic chunking instead of fixed-size)
 
 ## Author
@@ -104,4 +117,3 @@ Built by Sahar as a hands-on project for learning Forward Deployed
 Engineering: taking an existing system (FastAPI + its docs) and building a
 working, client-usable tool on top of it under real infrastructure
 constraints.
->>>>>>> d10eecd0 (Initial commit)
